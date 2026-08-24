@@ -1,0 +1,23 @@
+---
+title: "Why I'm building CleaveDB"
+slug: "why-cleavedb"
+date: "2026-08-13"
+project: "cleavedb"
+series: "intro"
+seriesOrder: 0
+tags: ["rust", "databases"]
+excerpt: "Starting a from-scratch, distributed, sharded database in Rust."
+draft: false
+---
+
+CleaveDB is a Rust reimplementation of FokosDB. More coming soon.
+
+Here's a rough shape of what the buffer pool manager will look like:
+
+```rust
+struct BufferPoolManager {
+    pool_size: usize,
+    pages: Vec<Page>,
+    page_table: HashMap<PageId, FrameId>,
+}
+```
