@@ -7,7 +7,7 @@ export type Project = {
   status: "active" | "paused" | "done";
 };
 
-
+// PROJECTS_DATA_START
 export const projects: Project[] = [
   {
     "slug": "cleavedb",
@@ -26,7 +26,7 @@ export const projects: Project[] = [
     "status": "paused"
   }
 ];
-
+// PROJECTS_DATA_END
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
