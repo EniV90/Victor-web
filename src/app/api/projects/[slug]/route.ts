@@ -31,9 +31,9 @@ function extractProjects(raw: string) {
     /\/\/ PROJECTS_DATA_START([\s\S]*?)\/\/ PROJECTS_DATA_END/,
   );
   if (!match) throw new Error("Could not find PROJECTS_DATA markers");
-  const arrayMatch = match[1].match(/\[[\s\S]*\]/);
+  const arrayMatch = match[1].match(/=\s*(\[[\s\S]*\]);/);
   if (!arrayMatch) throw new Error("Could not find projects array");
-  return JSON.parse(arrayMatch[0]);
+  return JSON.parse(arrayMatch[1]);
 }
 
 function rebuildFile(raw: string, projects: unknown[]) {

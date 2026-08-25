@@ -13,13 +13,17 @@ type Project = {
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch("/api/projects")
-      .then((r) => r.json())
-      .then((data) => setProjects(data.projects ?? []))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  fetch("/api/projects")
+    .then((r) => r.json())
+    .then((data) => {
+      if (data.error) setError(data.error);
+      else setProjects(data.projects ?? []);
+    })
+    .finally(() => setLoading(false));
+}, []);
 
   async function handleDelete(slug: string) {
     if (!confirm(`Delete "${slug}"? This can't be undone from here.`)) return;
@@ -42,6 +46,7 @@ export default function AdminProjectsPage() {
           + New project
         </Link>
       </div>
+      {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
       {loading && <p className="text-ink-muted text-sm">Loading...</p>}
 
